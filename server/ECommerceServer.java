@@ -21,16 +21,23 @@ public class ECommerceServer {
             PrintWriter output = new PrintWriter(
                     socket.getOutputStream(), true);
 
-            String message = input.readLine();
+            String encryptedMessage = input.readLine();
 
-            System.out.println("Customer message: " + message);
+            System.out.println("Encrypted message received: "
+                    + encryptedMessage);
+
+            String decryptedMessage =
+                    EncryptionUtil.decrypt(encryptedMessage);
+
+            System.out.println("Decrypted customer message: "
+                    + decryptedMessage);
 
             output.println("Order request received successfully.");
 
             socket.close();
             serverSocket.close();
 
-        } catch (IOException e) {
+        } catch (Exception e) {
             System.out.println("Server Error: " + e.getMessage());
         }
     }
